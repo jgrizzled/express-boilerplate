@@ -1,9 +1,9 @@
 // App server
 
 const app = require('./app');
-
+const logger = require('./logger');
 const { PORT } = require('./config');
 
 app.listen(PORT, () => {
-  console.log('server is listening on port ' + PORT);
+  logger.info('server is listening on port ' + PORT);
 });

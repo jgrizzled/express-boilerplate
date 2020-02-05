@@ -6,6 +6,7 @@ const helmet = require('helmet'); // secure HTTP headers
 const cors = require('cors'); // HTTP CORS
 
 const { NODE_ENV } = require('./config');
+const logger = require('./logger');
 
 const app = express();
 
@@ -29,11 +30,11 @@ app.post('/test', cors(), express.json(), (req, res) => {
 
 // global error handler
 app.use(function errorHandler(error, req, res, next) {
+  logger.error(error);
   let response;
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } };
   } else {
-    console.error(error);
     response = { message: error.message, error };
   }
   res.status(500).json(response);
